@@ -1,4 +1,4 @@
-package proyecto;
+package Piramide;
 
 import java.util.Scanner;
 
