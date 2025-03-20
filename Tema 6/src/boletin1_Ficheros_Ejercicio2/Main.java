@@ -11,8 +11,8 @@ public class Main {
 			System.out.println(ruta.getName());
 		} else if (ruta.isDirectory()) {
 			String[] archivos = ruta.list();
-			for (File string : archivos) {
-				System.out.println(string.listFiles());
+			for (int i = 0; i < archivos.length; i++) {
+//				System.out.println(archivos[i].);
 			}
 
 		}
