@@ -10,11 +10,6 @@ import java.util.Scanner;
 
 public class Tarea {
 
-	public static void main(String[] args) {
-		// Ejecutar el menú interactivo
-		ejecutarMenu();
-	}
-
 	// Método para ejecutar el menú interactivo
 	public static void ejecutarMenu() {
 		Scanner scanner = new Scanner(System.in);
@@ -113,7 +108,7 @@ public class Tarea {
 					System.out.println("No se pudo crear el archivo: " + filePath);
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("Ha habido un error en la entrada/salida en la creacion del archivo");
 			}
 		} else {
 			System.out.println("El archivo ya existe: " + filePath);
@@ -126,7 +121,7 @@ public class Tarea {
 			writer.write(contenido);
 			System.out.println("Texto escrito en el archivo.");
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Ha habido un problema al escribir en el archivo");
 		}
 	}
 
@@ -139,7 +134,7 @@ public class Tarea {
 				System.out.println(line);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Ha habido un problema con la entrada/salida en la lectura del archivo");
 		}
 	}
 
@@ -232,4 +227,10 @@ public class Tarea {
 			}
 		}
 	}
+
+	public static void main(String[] args) {
+		// Ejecutar el menú interactivo
+		ejecutarMenu();
+	}
+
 }
