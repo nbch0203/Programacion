@@ -25,7 +25,7 @@ public class GestorPedidos {
 		FileWriter fw = new FileWriter(file, true);
 		BufferedWriter bf = new BufferedWriter(fw);
 		if (file.exists()) {
-			bf.write(pedido + "\n");
+			fw.write(pedido.toString() + "\n");
 
 			bf.close();
 			fw.close();

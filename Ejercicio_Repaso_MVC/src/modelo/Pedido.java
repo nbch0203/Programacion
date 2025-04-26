@@ -30,7 +30,7 @@ public class Pedido implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Nombre=" + nombre + ", articulos=" + articulos ;
+		return "Nombre=" + nombre + ", articulos=" + articulos.toString() ;
 	}
 	
 	

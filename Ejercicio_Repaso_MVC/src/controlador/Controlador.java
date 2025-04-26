@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 
 import modelo.GestorPedidos;
 import modelo.Pedido;
@@ -21,6 +22,7 @@ public class Controlador {
 	public Controlador(Interfaz vista, GestorPedidos modelo) {
 		this.vista = vista;
 		this.modelo = modelo;
+		inicioBotones();
 	}
 
 	public Interfaz getVista() {
@@ -37,6 +39,12 @@ public class Controlador {
 
 	public void setModelo(GestorPedidos modelo) {
 		this.modelo = modelo;
+	}
+
+	public void inicioBotones() {
+		getVista().getAñadir().addActionListener(e -> GuardarInformacion());
+
+//		getVista().getMostrarTodo().addActionListener(e -> mostrarTodo());
 	}
 
 	public void GuardarInformacion() {
@@ -60,15 +68,35 @@ public class Controlador {
 					lista.add(new Producto("Coca Cola", 1.2));
 				}
 
-				Pedido pedido = new Pedido(getVista().getTextField(), lista);
-				try {
-					getModelo().Guardar(pedido);
-					
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					System.out.println("Error de entrada salida");
+				if (!lista.isEmpty()) {
+					Pedido pedido = new Pedido(getVista().getTextField(), lista);
+					try {
+						getModelo().Guardar(pedido);
+						JOptionPane.showMessageDialog(null, "✅ Pedido guardado en pedidos.txt");
+					} catch (IOException ex) {
+						JOptionPane.showMessageDialog(null, "❌ Error al guardar: " + ex.getMessage(), "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});
 	}
+
+//	public void mostrarTodo() {
+//		JButton btmostrar= getVista().getMostrarTodo();
+//		btmostrar.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				try {
+//					String texto=getModelo().mostrarTodo();
+//					getVista().setTextArea(texto);
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				
+//				
+//			}
+//		});
+//	}
 }
