@@ -10,7 +10,6 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.SpringLayout;
