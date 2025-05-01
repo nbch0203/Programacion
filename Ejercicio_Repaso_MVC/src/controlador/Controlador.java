@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import modelo.GestorPedidos;
 import modelo.Pedido;
@@ -43,8 +45,9 @@ public class Controlador {
 
 	public void inicioBotones() {
 		getVista().getAñadir().addActionListener(e -> GuardarInformacion());
-
-//		getVista().getMostrarTodo().addActionListener(e -> mostrarTodo());
+		getVista().getMostrarTodo().addActionListener(e -> mostrarTodo());
+		getVista().getBuscar().addActionListener(e -> buscar());
+		getVista().getLimpiar().addActionListener(e -> limpiar());
 	}
 
 	public void GuardarInformacion() {
@@ -82,21 +85,60 @@ public class Controlador {
 		});
 	}
 
-//	public void mostrarTodo() {
-//		JButton btmostrar= getVista().getMostrarTodo();
-//		btmostrar.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				try {
-//					String texto=getModelo().mostrarTodo();
-//					getVista().setTextArea(texto);
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				
-//				
-//			}
-//		});
-//	}
+	public void mostrarTodo() {
+		JButton btmostrar = getVista().getMostrarTodo();
+		btmostrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String texto = getModelo().mostrarTodo();
+					getVista().getTextArea().setText(texto);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					getVista().getTextArea().setText("Error al cargar los pedidos: " + e1.getMessage());
+
+				}
+
+			}
+		});
+	}
+
+	public void buscar() {
+		JButton btbuscar = getVista().getBuscar();
+		String field = getVista().getTextField();
+
+		btbuscar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String texto = getModelo().leer(field);
+					if (texto.contains(field)) {
+						getVista().getTextArea().setText(texto);
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+	}
+	
+	public void limpiar() {
+		JButton btnlimpiar=getVista().getLimpiar();
+		
+		btnlimpiar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					getModelo().limpiarTxt();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+	}
 }

@@ -78,4 +78,36 @@ public class GestorPedidos {
 		return aux;
 	}
 
+	public String leer(String texto) throws IOException {
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		String aux = "";
+		String linea;
+
+		while ((linea = br.readLine()) != null) {
+			if (linea.contains(texto)) {
+				aux += linea + "\n"; // Agrega la línea leída y un salto de línea
+			}
+
+		}
+
+		fr.close();
+		br.close();
+
+		// Elimina el último salto de línea si no se desea
+		if (!aux.isEmpty()) {
+			aux = aux.substring(0, aux.length() - 1);
+		}
+
+		return aux;
+
+	}
+
+	public void limpiarTxt() throws IOException {
+		if (file.exists()) {
+			file.delete();
+		}
+		file.createNewFile();
+	}
+
 }
