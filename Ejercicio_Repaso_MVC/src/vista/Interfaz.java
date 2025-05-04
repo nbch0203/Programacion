@@ -20,15 +20,7 @@ public class Interfaz extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JCheckBox Hamburguesa, Patatas, CocaCola, Helado;
-	private JButton Añadir, Buscar, MostrarTodo,Limpiar;
-	public JButton getLimpiar() {
-		return Limpiar;
-	}
-
-	public void setLimpiar(JButton limpiar) {
-		Limpiar = limpiar;
-	}
-
+	private JButton Añadir, Buscar, MostrarTodo, Limpiar;
 	private JTextArea textArea;
 
 	/**
@@ -100,18 +92,18 @@ public class Interfaz extends JFrame {
 
 		MostrarTodo = new JButton("Mostrar todo");
 		panel_2.add(MostrarTodo);
-		
+
 		Limpiar = new JButton("Limpiar TxT");
 		panel_2.add(Limpiar);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 300, 654, 250);
 		contentPane.add(scrollPane);
-		
-		 textArea = new JTextArea();
-		 textArea.setEditable(false);
-		 textArea.setLineWrap(true);
-		 scrollPane.setViewportView(textArea);
+
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setLineWrap(true);
+		scrollPane.setViewportView(textArea);
 
 	}
 
@@ -186,5 +178,13 @@ public class Interfaz extends JFrame {
 
 	public void setTextField(JTextField textField) {
 		this.textField = textField;
+	}
+
+	public JButton getLimpiar() {
+		return Limpiar;
+	}
+
+	public void setLimpiar(JButton limpiar) {
+		Limpiar = limpiar;
 	}
 }

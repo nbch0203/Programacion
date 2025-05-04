@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Gestor_de_reservas {
 	private Reservas reserva;
@@ -19,42 +21,66 @@ public class Gestor_de_reservas {
 		this.reserva = reserva;
 	}
 
-	public String reservar(Reservas reserva) throws IOException {
-		if (!file.exists()) {
-			file.createNewFile();
-		}
-
+	public void reservar(Reservas reserva) throws IOException {
 		FileWriter fw = new FileWriter(file, true);
-		BufferedWriter bfw = new BufferedWriter(fw);
+		BufferedWriter bf = new BufferedWriter(fw);
+		if (file.exists()) {
+			fw.write(reserva.toString() + "\n");
 
-		bfw.write(reserva.toString() + "\n");
+			bf.close();
+			fw.close();
 
-		fw.close();
-		bfw.close();
-		return "La reserva se esta guardando....";
-	}
-
-	public static String cancelar(String nombre) throws IOException {
-		if (!file.exists()) {
+		} else {
 			file.createNewFile();
+			bf.write(reserva.toString() + "\n");
+			fw.close();
+			bf.close();
 		}
-
-		FileReader fr = new FileReader(file);
-		BufferedReader bfr = new BufferedReader(fr);
-		String linea;
-		while ((linea = bfr.readLine()) != null) {
-			if (linea.contains(nombre)) {
-				FileWriter fw = new FileWriter(file);
-				BufferedWriter bw = new BufferedWriter(fw);
-				bw.write("-----------------------------");
-				fw.close();
-				bw.close();
-			}
-		}
-		fr.close();
-		bfr.close();
-
-		return "La reserva con el nombre: " + nombre + " ha sido cancelada";
 	}
 
+	public void cancelar(String nombre) throws IOException {
+	    if (!file.exists()) {
+	        file.createNewFile();
+	    }
+
+	    // Almacenamos las líneas que NO contienen el nombre a eliminar
+	    List<String> lineasRestantes = new ArrayList<>();
+
+	    // 1. Leemos el archivo y filtramos las líneas
+	    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+	        String linea;
+	        while ((linea = br.readLine()) != null) {
+	            if (!linea.contains(nombre)) {
+	                lineasRestantes.add(linea);
+	            }
+	        }
+	    }
+
+	    // 2. Sobrescribimos el archivo con las líneas restantes
+	    try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+	        for (String linea : lineasRestantes) {
+	            bw.write(linea);
+	            bw.newLine(); // Añade salto de línea
+	        }
+	    }
+
+	}
+	public void comprobar(String nombre) throws IOException {
+		 if (!file.exists()) {
+		        file.createNewFile();
+		    }
+
+		    // Almacenamos las líneas que NO contienen el nombre a eliminar
+		    List<String> lineasRestantes = new ArrayList<>();
+
+		    // 1. Leemos el archivo y filtramos las líneas
+		    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+		        String linea;
+		        while ((linea = br.readLine()) != null) {
+		            if (!linea.contains(nombre)) {
+		                lineasRestantes.add(linea);
+		            }
+		        }
+		    }
+	}
 }

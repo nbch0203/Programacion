@@ -5,36 +5,38 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JCheckBox;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import java.awt.SystemColor;
-import java.awt.Font;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class Interfaz extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
+	private JRadioButton Efectivo, Tarjeta;
 	private JButton Reservar, Cancelar, Modificar;
 	private JCheckBox Castellano, Ingles;
-	private JComboBox comboBox;
-	private JRadioButton Tarjeta, Efectivo;
+	private JComboBox<String> comboBox;
 	private JTextArea textArea;
+
+	
+
+	public void setComboBox(JComboBox<String> comboBox) {
+		this.comboBox = comboBox;
+	}
 
 	/**
 	 * Launch the application.
@@ -56,123 +58,90 @@ public class Interfaz extends JFrame {
 	 * Create the frame.
 	 */
 	public Interfaz() {
-		setTitle("Reserva de tours");
-		setResizable(false);
+		setTitle("Rerserva de tours");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 500);
+		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 10, 566, 144);
-		contentPane.add(panel);
-		panel.setLayout(null);
-
-		JLabel Nombre = new JLabel("Nombre:");
-		Nombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		Nombre.setBounds(26, 10, 63, 20);
-		panel.add(Nombre);
-
-		textField = new JTextField();
-		textField.setBounds(89, 13, 125, 19);
-		panel.add(textField);
-		textField.setColumns(10);
-
-		Castellano = new JCheckBox("Castellano");
-		Castellano.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		Castellano.setBounds(273, 8, 93, 21);
-		panel.add(Castellano);
-
-		Ingles = new JCheckBox("Inglés");
-		Ingles.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		Ingles.setBounds(414, 10, 93, 21);
-		panel.add(Ingles);
-
-		JLabel lblNewLabel = new JLabel("Elige un servicio:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(26, 40, 119, 13);
-		panel.add(lblNewLabel);
-
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(
-				new String[] { "", "Free Tour", "Leyendas nocturnas", "Leyendas vivientes", "Tour express" }));
-		comboBox.setBounds(26, 64, 188, 21);
-		panel.add(comboBox);
-
-		JPanel forma_pago = new JPanel();
-		forma_pago.setName("Forma de pago");
-		forma_pago.setBounds(273, 35, 203, 78);
-		forma_pago.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-		panel.add(forma_pago);
-
-		JLabel tituloFormaPago = new JLabel("Forma de pago");
-		tituloFormaPago.setFont(new Font("Arial", Font.BOLD, 16));
-		forma_pago.add(tituloFormaPago);
-
-		Tarjeta = new JRadioButton("Tarjeta");
-		Tarjeta.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		forma_pago.add(Tarjeta);
-
-		JRadioButton Efectivo = new JRadioButton("Efectivo");
-		Efectivo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		forma_pago.add(Efectivo);
-
-		JPanel panelBotones = new JPanel();
-		panelBotones.setBounds(10, 164, 566, 69);
-		contentPane.add(panelBotones);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 133, 414, 33);
+		contentPane.add(panel_1);
 
 		Reservar = new JButton("Reservar");
-		Reservar.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		panelBotones.add(Reservar);
+		panel_1.add(Reservar);
 
 		Cancelar = new JButton("Cancelar");
-		Cancelar.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		panelBotones.add(Cancelar);
+		panel_1.add(Cancelar);
 
 		Modificar = new JButton("Modificar");
-		Modificar.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		Modificar.setForeground(Color.BLACK);
-		panelBotones.add(Modificar);
+		panel_1.add(Modificar);
+
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 11, 414, 111);
+		contentPane.add(panel);
+
+		JLabel Nombre = new JLabel("Nombre:");
+		Nombre.setBounds(21, 11, 46, 14);
+
+		textField = new JTextField();
+		textField.setBounds(77, 8, 86, 20);
+		textField.setColumns(10);
+
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setBounds(21, 36, 46, 14);
+
+		comboBox = new JComboBox<String>();
+		comboBox.setBounds(21, 52, 142, 22);
+		comboBox.setModel(new DefaultComboBoxModel<String>(
+				new String[] { "", "Free Tour", "Leyendas nocturnas", "Leyendas vivientes", "Tour express" }));
+
+		Castellano = new JCheckBox("Castellano");
+		Castellano.setBounds(202, 7, 97, 23);
+
+		Ingles = new JCheckBox("Ingles");
+		Ingles.setBounds(311, 7, 97, 23);
+
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(202, 36, 202, 64);
+		panel_2.setLayout(null);
+
+		Tarjeta = new JRadioButton("Tarjeta");
+		Tarjeta.setBounds(20, 33, 84, 23);
+		panel_2.add(Tarjeta);
+
+		Efectivo = new JRadioButton("Efectivo");
+		Efectivo.setBounds(106, 33, 76, 23);
+		panel_2.add(Efectivo);
+
+		JLabel lblNewLabel_2 = new JLabel("Forma de pago");
+		lblNewLabel_2.setLabelFor(panel_2);
+		lblNewLabel_2.setBounds(31, 11, 100, 14);
+		panel_2.add(lblNewLabel_2);
+		panel_2.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { Tarjeta, Efectivo }));
+		panel.setLayout(null);
+		panel.add(Nombre);
+		panel.add(textField);
+		panel.add(lblNewLabel_1);
+		panel.add(comboBox);
+		panel.add(Castellano);
+		panel.add(Ingles);
+		panel.add(panel_2);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 243, 566, 210);
+		scrollPane.setBounds(10, 177, 414, 76);
 		contentPane.add(scrollPane);
 
 		textArea = new JTextArea();
-		textArea.setText("Pulsa un botón para ver resultados");
 		textArea.setBackground(Color.PINK);
+		textArea.setText("Pulsa un botón para ver resultados");
+		textArea.setForeground(Color.BLACK);
 		textArea.setEditable(false);
 		scrollPane.setViewportView(textArea);
-
 	}
-
-	public JPanel getContentPane() {
-		return contentPane;
-	}
-
-	public void setContentPane(JPanel contentPane) {
-		this.contentPane = contentPane;
-	}
-
-	public JTextField getTextField() {
-		return textField;
-	}
-
-	public void setTextField(JTextField textField) {
-		this.textField = textField;
-	}
-
-	public JButton getReservar() {
-		return Reservar;
-	}
-
-	public void setReservar(JButton reservar) {
-		Reservar = reservar;
-	}
-
 	public JButton getCancelar() {
 		return Cancelar;
 	}
@@ -187,6 +156,49 @@ public class Interfaz extends JFrame {
 
 	public void setModificar(JButton modificar) {
 		Modificar = modificar;
+	}
+
+	
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
+	public void setTextArea(String string) {
+		this.textArea.setText(string);
+	}
+
+	public String getTextField() {
+		String aux = textField.getText();
+		return aux;
+	}
+
+	public void setTextField(JTextField textField) {
+		this.textField = textField;
+	}
+
+	public JRadioButton getEfectivo() {
+		return Efectivo;
+	}
+
+	public void setEfectivo(JRadioButton efectivo) {
+		Efectivo = efectivo;
+	}
+
+	public JRadioButton getTarjeta() {
+		return Tarjeta;
+	}
+
+	public void setTarjeta(JRadioButton tarjeta) {
+		Tarjeta = tarjeta;
+	}
+
+	public JButton getReservar() {
+		return Reservar;
+	}
+
+	public void setReservar(JButton reservar) {
+		Reservar = reservar;
 	}
 
 	public JCheckBox getCastellano() {
@@ -205,35 +217,7 @@ public class Interfaz extends JFrame {
 		Ingles = ingles;
 	}
 
-	public JComboBox getComboBox() {
+	public JComboBox<String> getComboBox() {
 		return comboBox;
-	}
-
-	public void setComboBox(JComboBox comboBox) {
-		this.comboBox = comboBox;
-	}
-
-	public JRadioButton getTarjeta() {
-		return Tarjeta;
-	}
-
-	public void setTarjeta(JRadioButton tarjeta) {
-		Tarjeta = tarjeta;
-	}
-
-	public JRadioButton getEfectivo() {
-		return Efectivo;
-	}
-
-	public void setEfectivo(JRadioButton efectivo) {
-		Efectivo = efectivo;
-	}
-
-	public JTextArea getTextArea() {
-		return textArea;
-	}
-
-	public void setTextArea(String string) {
-		this.textArea.setText(string);
 	}
 }

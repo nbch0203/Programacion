@@ -6,10 +6,11 @@ public class Reservas {
 	private String metodo_pago;
 	private String idioma;
 	private double precio;
-	
-	public Reservas(String nombre, 
-			String tipo, String metodo_pago, 
-			String idioma, double precio) {
+
+	public Reservas() {
+	}
+
+	public Reservas(String nombre, String tipo, String metodo_pago, String idioma, double precio) {
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.metodo_pago = metodo_pago;
@@ -59,10 +60,8 @@ public class Reservas {
 
 	@Override
 	public String toString() {
-		return "Reservas de : " + getNombre() + "  Servicio: " + getTipo() + " Forma de pago: "
-				+ getMetodo_pago() + " Idioma: " + getIdioma() + " Precio=" + getPrecio();
+		return "Reservas de : " + getNombre() + "  Servicio: " + getTipo() + " Forma de pago: " + getMetodo_pago()
+				+ " Idioma: " + getIdioma() + " Precio=" + getPrecio();
 	}
-	
-	
-	
+
 }

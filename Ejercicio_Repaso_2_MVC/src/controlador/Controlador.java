@@ -37,47 +37,70 @@ public class Controlador {
 	public void setVista(Interfaz vista) {
 		this.vista = vista;
 	}
-	
-	public void iniciartodo() {
-		getVista().getReservar().addActionListener(e -> reservar());
-	}
 
-	public void reservar() {
-		JButton reservar=getVista().getReservar();
-		reservar.addActionListener(new ActionListener() {
-			
+	public void iniciartodo() {
+		getVista().getReservar().addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Reservas rs = null;
-				if (getVista().getCastellano().isSelected()) {
-					rs.setIdioma("Castellano");
-				}
-				if (getVista().getIngles().isSelected()) {
-					rs.setIdioma("Ingles");
-				}
-				if (getVista().getTarjeta().isSelected()) {
-					rs.setMetodo_pago("Tarjeta");
-				}
-				if (getVista().getEfectivo().isSelected()) {
-					rs.setMetodo_pago("Efectivo");
-				}
-				JComboBox<String> comboBox = getVista().getComboBox();
-				String opcionseleccionada= (String) comboBox.getSelectedItem();
-			
-				rs.setTipo(opcionseleccionada);
-				
-				try {
-					getModelo().reservar(rs);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				
+				reservar();
+
 			}
 		});
 		
+		getVista().getCancelar().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cancelar();
+				
+			}
+		});
+	}
+	
+	public void cancelar() {
+		String nombre= getVista().getTextField();
 		
+		try {
+			getModelo().cancelar(nombre);
+			getVista().setTextArea("Cancelando la reserva ......");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void reservar() {
+
+		Reservas rs = new Reservas();
+		String nombre = getVista().getTextField();
+
+		rs.setNombre(nombre);
+
+		if (getVista().getCastellano().isSelected()) {
+			rs.setIdioma("Castellano");
+		} else {
+			rs.setIdioma("Ingles");
+		}
+		if (getVista().getTarjeta().isSelected()) {
+			rs.setMetodo_pago("Tarjeta");
+		} else {
+			rs.setMetodo_pago("Efectivo");
+		}
+		JComboBox<String> comboBox = getVista().getComboBox();
+		String opcionseleccionada = (String) comboBox.getSelectedItem();
+
+		rs.setTipo(opcionseleccionada);
+
+		try {
+			getModelo().reservar(rs);
+			getVista().setTextArea("Guardando la reserva.....");
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 	}
+
 }
