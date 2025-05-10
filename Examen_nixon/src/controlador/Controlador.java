@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,6 +14,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import modelo.Equipo;
@@ -185,10 +189,12 @@ public class Controlador {
 			BufferedReader br = new BufferedReader(fr);
 			String aux = "";
 			while ((aux = br.readLine()) != null) {
-				if (aux.contains(numero)) {
-					getVista().setTextArea(aux);
-					br.close();
-					fr.close();
+				ArrayList<String> lista = new ArrayList<>();
+				lista.add(aux);
+				for (String string : lista) {
+					if (string.equals(numero)) {
+						getVista().setTextArea(string);
+					}
 				}
 			}
 
@@ -237,21 +243,66 @@ public class Controlador {
 
 	}
 
+//	public void mostrarOBJ() {
+//		try {
+//			// Limpiar el área de texto primero
+//			getVista().getTextArea().setText("");
+//
+//			// Verificar si el archivo existe y no está vacío
+//			if (!file_obj.exists() || file_obj.length() == 0) {
+//				JOptionPane.showMessageDialog(vista, "No hay datos guardados o el archivo no existe", "Información",
+//						JOptionPane.INFORMATION_MESSAGE);
+//				return;
+//			}
+//
+//			try {
+//				FileInputStream fis = new FileInputStream("equipos.dat");
+//				ObjectInputStream ois = new ObjectInputStream(fis);
+//				StringBuilder contenido = new StringBuilder();
+//
+//				while (true) {
+//					try {
+//						Object eq = ois.readObject();
+//						contenido.append(eq.toString()).append("\n");
+//					} catch (EOFException e) {
+//						// Fin del archivo alcanzado
+//						break;
+//					}
+//				}
+//
+//				if (contenido.length() > 0) {
+//					getVista().getTextArea().setText(contenido.toString());
+//				} else {
+//					getVista().getTextArea().setText("No se encontraron equipos en el archivo");
+//				}
+//
+//			} catch (ClassNotFoundException e) {
+//				JOptionPane.showMessageDialog(vista, "Error en el formato del archivo: " + e.getMessage(), "Error",
+//						JOptionPane.ERROR_MESSAGE);
+//				e.printStackTrace();
+//			}
+//		} catch (IOException e) {
+//			JOptionPane.showMessageDialog(vista, "Error al leer el archivo: " + e.getMessage(), "Error",
+//					JOptionPane.ERROR_MESSAGE);
+//			e.printStackTrace();
+//		}
+//	}
+
 	public void mostrarOBJ() {
 		try {
 			FileInputStream fis = new FileInputStream(file_obj);
-			ObjectInputStream oos = new ObjectInputStream(fis);
+			try (ObjectInputStream oos = new ObjectInputStream(fis)) {
+				while (true) {
+					ArrayList<Equipo> lista = new ArrayList<>();
+					lista.add((Equipo) oos.readObject());
+					for (Equipo equipo : lista) {
+						getVista().getTextArea().setText(equipo.toString());
+					}
 
-			while (true) {
-
-				Object eq = oos.readObject();
-
-				getVista().getTextArea().setText(eq.toString());
-
+				}
 			}
 
 		} catch (IOException | ClassNotFoundException e) {
-			// TODO: handle exception
 		}
 
 	}

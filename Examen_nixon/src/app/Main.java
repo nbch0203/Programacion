@@ -9,9 +9,16 @@ import vista.Vista;
 
 public class Main {
 	public static void main(String[] args) {
-		File file = new File("equipo.txt");
+		File file = new File("equipos.txt");
+		File file2 = new File("equipos.dat");
 		try {
 			file.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			file2.createNewFile();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
