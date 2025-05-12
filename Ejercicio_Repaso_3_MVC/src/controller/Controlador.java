@@ -2,7 +2,12 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import model.Cliente;
 import model.Gesto_clientes;
@@ -43,6 +48,23 @@ public class Controlador {
 
 			}
 		});
+
+		getVista().getBoton_objetos().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				guardarObjt();
+			}
+		});
+		
+		getVista().getBoton_mostrar().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				mostrarTodo();
+			}
+		});
 	}
 
 	public void guardarTxt() {
@@ -55,9 +77,44 @@ public class Controlador {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void guardarObjt() {
 		Cliente cl = new Cliente(getVista().getTextField_nombre(), getVista().getTextField_correo());
-		
+
+		try {
+
+			FileOutputStream fos = new FileOutputStream("fichero.dat");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+			oos.writeObject(cl);
+			oos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void mostrarTodo() {
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream("fichero.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Object aux;
+			while (true) {
+				aux = ois.readObject();
+				getVista().setTextArea(aux.toString());
+			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }

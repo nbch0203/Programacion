@@ -12,10 +12,23 @@ import java.util.ArrayList;
 public class GestorPedidos {
 	private Pedido pedido;
 	private static File file = new File("pedido.txt");
+	
+	
+
+	public static File getFile() {
+		return file;
+	}
+
+
+	public static void setFile(File file) {
+		GestorPedidos.file = file;
+	}
+
 
 	public Pedido getPedido() {
 		return pedido;
 	}
+	
 
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;

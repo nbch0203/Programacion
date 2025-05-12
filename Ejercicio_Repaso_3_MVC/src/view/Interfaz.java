@@ -19,9 +19,10 @@ public class Interfaz extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField_nombre;
 	private JTextField textField_correo;
-	private JButton boton_enviar;
+	private JButton boton_enviar, boton_objetos;
 	private JCheckBox checkbox;
 	private JTextArea textArea;
+	private JButton boton_mostrar;
 
 	/**
 	 * Launch the application.
@@ -94,6 +95,14 @@ public class Interfaz extends JFrame {
 		checkbox.setBounds(137, 7, 144, 23);
 		panel_1.add(checkbox);
 
+		boton_objetos = new JButton("New button");
+		boton_objetos.setBounds(266, 36, 85, 21);
+		panel_1.add(boton_objetos);
+
+		boton_mostrar = new JButton("New button");
+		boton_mostrar.setBounds(32, 36, 85, 21);
+		panel_1.add(boton_mostrar);
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 170, 414, 80);
 		contentPane.add(scrollPane);
@@ -101,7 +110,6 @@ public class Interfaz extends JFrame {
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 	}
-
 
 	public String getTextField_nombre() {
 		String aux = textField_nombre.getText();
@@ -144,4 +152,21 @@ public class Interfaz extends JFrame {
 	public void setTextArea(String textArea) {
 		this.textArea.setText(textArea);
 	}
+
+	public JButton getBoton_objetos() {
+		return boton_objetos;
+	}
+
+	public void setBoton_objetos(JButton boton_objetos) {
+		this.boton_objetos = boton_objetos;
+	}
+
+	public JButton getBoton_mostrar() {
+		return boton_mostrar;
+	}
+
+	public void setBoton_mostrar(JButton boton_mostrar) {
+		this.boton_mostrar = boton_mostrar;
+	}
+
 }
