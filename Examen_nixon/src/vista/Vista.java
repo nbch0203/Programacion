@@ -116,7 +116,11 @@ public class Vista extends JFrame {
 		panel.add(Wifi);
 
 		JScrollPane scrollPane = new JScrollPane();
+<<<<<<< HEAD
 		scrollPane.setBounds(22, 148, 464, 78);
+=======
+		scrollPane.setBounds(22, 148, 452, 78);
+>>>>>>> 152e0a7dba66cd4e533346e84df457d4270d8e6e
 		contentPane.add(scrollPane);
 
 		textArea = new JTextArea();
@@ -125,7 +129,11 @@ public class Vista extends JFrame {
 		scrollPane.setViewportView(textArea);
 
 		JPanel panel_1 = new JPanel();
+<<<<<<< HEAD
 		panel_1.setBounds(12, 238, 474, 47);
+=======
+		panel_1.setBounds(10, 238, 476, 47);
+>>>>>>> 152e0a7dba66cd4e533346e84df457d4270d8e6e
 		contentPane.add(panel_1);
 
 		btn_obj = new JButton("Guardar OBJ");

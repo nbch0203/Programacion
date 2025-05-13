@@ -112,7 +112,7 @@ public class Conexion {
 		String query;
 		try (Connection cn = DriverManager.getConnection(url, login, password);
 				PreparedStatement pstm = cn.prepareStatement(query)) {
-
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
