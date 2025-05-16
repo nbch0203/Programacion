@@ -1,0 +1,124 @@
+package app;
+
+import java.nio.channels.AsynchronousSocketChannel;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import conexion.Conexion;
+import modelo.Alumno;
+
+public class App {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Conexion cnn = new Conexion();
+		cnn.conectar();
+
+		Scanner sc = new Scanner(System.in);
+
+		while (true) {
+
+			System.out.println("1- Listar todos los alumnos ordenados por ID.\r\n"
+					+ "2. Insertar un nuevo alumno (nombre, edad, nota).\r\n"
+					+ "3. Actualizar un alumno existente por ID.\r\n" + "4. Eliminar un alumno por ID.\r\n"
+					+ "5. Listar alumnos con nota superior o igual a un valor dado.\r\n"
+					+ "6. Listar alumnos de una edad concreta.\r\n" + "7. Mostrar los 3 alumnos con mejor nota.\r\n"
+					+ "8. Mostrar estadísticas generales");
+			int opcion = sc.nextInt();
+			switch (opcion) {
+			case 1:
+				try {
+					cnn.ejecutarConsulta();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 2:
+				System.out.println("Dime el nombre del nuevo alumno: ");
+				String nombre = sc.next();
+
+				System.out.println("Dime la edad del nuevo alumno: ");
+				int edad = sc.nextInt();
+				sc.nextLine();
+				System.out.println("Dime la nota del nuevo alumno: ");
+				Double nota = sc.nextDouble();
+				sc.nextLine();
+				cnn.insertarAlumno(new Alumno(nombre, edad, nota));
+				break;
+			case 3:
+				System.out.println("Dime el id del alumno a actualizar: ");
+				int id_alumno = sc.nextInt();
+				System.out.println("Dime el nuevo nombre del alumno: ");
+				String n_nombre = sc.nextLine();
+				System.out.println("Dime la nueva edad del alumno: ");
+				int n_edad = sc.nextInt();
+				System.out.println("Dime la nueva nota del alumno");
+				Double n_nota = sc.nextDouble();
+//				cnn.actualizarCliente(id_alumno, n_nombre, n_edad, n_nota);
+				break;
+
+			case 4:
+				System.out.println("Introduce el id del alumno a borrar: ");
+				int id_br = sc.nextInt();
+
+				while (id_br < 0) {
+					System.out.println("Introduzca un id valido: ");
+					id_br = sc.nextInt();
+				}
+
+				cnn.borrarAlumno(id_br);
+				break;
+			case 5:
+				System.out.println("Dime la nota a filtrar: ");
+				Double nota_filt = sc.nextDouble();
+
+				while (nota_filt < 0) {
+					System.out.println("Introduzca una nota valida: ");
+					nota_filt = sc.nextDouble();
+				}
+				try {
+					cnn.listarAlumnosSuperior(nota_filt);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			case 6:
+
+				System.out.println("Introduce la edad por la que listar: ");
+				int edad_listar = sc.nextInt();
+
+				while (edad_listar < 0) {
+					System.out.println("Introduzca una edad valida: ");
+					edad_listar = sc.nextInt();
+				}
+
+				cnn.listarAlumnosEdad(edad_listar);
+				break;
+			case 7:
+				try {
+					cnn.mostrarAlumnosMejorNota();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 8:
+				try {
+					cnn.mostrarEstadisticasgenerales();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			default:
+				System.out.println("Cerrando el programa \n");
+				cnn.cerrar();
+				break;
+			}
+		}
+	}
+
+}
