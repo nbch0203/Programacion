@@ -109,7 +109,7 @@ public class Conexion {
 	}
 
 	public void actualizarCliente(int ncliente, String nuevaDir) {
-		String query;
+		String query=("UPDATE");
 		try (Connection cn = DriverManager.getConnection(url, login, password);
 				PreparedStatement pstm = cn.prepareStatement(query)) {
 			
