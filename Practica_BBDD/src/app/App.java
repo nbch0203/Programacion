@@ -27,12 +27,9 @@ public class App {
 			int opcion = sc.nextInt();
 			switch (opcion) {
 			case 1:
-				try {
-					cnn.ejecutarConsulta();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
+				cnn.ejecutarConsulta();
+
 				break;
 			case 2:
 				System.out.println("Dime el nombre del nuevo alumno: ");
@@ -40,22 +37,48 @@ public class App {
 
 				System.out.println("Dime la edad del nuevo alumno: ");
 				int edad = sc.nextInt();
-				sc.nextLine();
+
+				while (edad < 0) {
+					System.out.println("Introduzca una edad valida: ");
+					edad = sc.nextInt();
+				}
+
 				System.out.println("Dime la nota del nuevo alumno: ");
 				Double nota = sc.nextDouble();
-				sc.nextLine();
+				while (nota < 0) {
+					System.out.println("Introduzca una nota valida: ");
+					nota = sc.nextDouble();
+				}
+
 				cnn.insertarAlumno(new Alumno(nombre, edad, nota));
 				break;
 			case 3:
 				System.out.println("Dime el id del alumno a actualizar: ");
 				int id_alumno = sc.nextInt();
+
+				while (id_alumno < 0) {
+					System.out.println("Introduzca un id valido: ");
+					id_alumno = sc.nextInt();
+				}
+
 				System.out.println("Dime el nuevo nombre del alumno: ");
 				String n_nombre = sc.nextLine();
 				System.out.println("Dime la nueva edad del alumno: ");
 				int n_edad = sc.nextInt();
+
+				while (n_edad < 0) {
+					System.out.println("Introduzca una edad valida: ");
+					n_edad = sc.nextInt();
+				}
 				System.out.println("Dime la nueva nota del alumno");
 				Double n_nota = sc.nextDouble();
-//				cnn.actualizarCliente(id_alumno, n_nombre, n_edad, n_nota);
+
+				while (n_nota < 0) {
+					System.out.println("Introduzca una nota valida: ");
+					n_nota = sc.nextDouble();
+				}
+
+				cnn.actualizarAlumno(id_alumno, n_nombre, n_edad, n_nota);
 				break;
 
 			case 4:
@@ -77,12 +100,8 @@ public class App {
 					System.out.println("Introduzca una nota valida: ");
 					nota_filt = sc.nextDouble();
 				}
-				try {
-					cnn.listarAlumnosSuperior(nota_filt);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				cnn.listarAlumnosSuperior(nota_filt);
+
 				break;
 
 			case 6:
@@ -98,20 +117,14 @@ public class App {
 				cnn.listarAlumnosEdad(edad_listar);
 				break;
 			case 7:
-				try {
-					cnn.mostrarAlumnosMejorNota();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
+				cnn.mostrarAlumnosMejorNota();
+
 				break;
 			case 8:
-				try {
-					cnn.mostrarEstadisticasgenerales();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
+				cnn.mostrarEstadisticasgenerales();
+
 				break;
 			default:
 				System.out.println("Cerrando el programa \n");
