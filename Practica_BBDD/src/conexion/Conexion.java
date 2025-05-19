@@ -50,15 +50,30 @@ public class Conexion {
 
 		st = connection.createStatement();
 		rs = st.executeQuery("select ID,nombre,EDAD,NOTA from alumnos ORDER BY nota desc");
+	
+		// Imprimir línea superior
+		System.out.println("+------------+---------------+---------------+---------------+");
 
+		// Imprimir encabezados
+		System.out.printf("| %-10s | %-13s | %-13s | %-13s |\n", "id", "nombre", "edad_alumno", "nota_alumno");
+
+		
 		while (rs.next()) {
 			id_alumno = rs.getInt("ID");
 			nombre = rs.getString("nombre");
 			edad_alumno = rs.getInt("EDAD");
 			nota_alumno = rs.getDouble("NOTA");
 
-			System.out.println("id:" + id_alumno + "*nombre:" + nombre + "*edad_alumno:" + edad_alumno
-					+ "*nota_alumno: " + nota_alumno);
+		
+			
+			// Línea de separación
+			System.out.println("+------------+---------------+---------------+---------------+");
+
+			// Imprimir valores
+			System.out.printf("| %-10d | %-13s | %-13d | %-13.2f |\n", id_alumno, nombre, edad_alumno, nota_alumno);
+
+			// Línea inferior
+			System.out.println("+------------+---------------+---------------+---------------+");
 
 		}
 	}
@@ -71,7 +86,15 @@ public class Conexion {
 			pstm.setInt(3, alumno.getEdad());
 			pstm.setDouble(4, alumno.getNota());
 			pstm.executeUpdate();
-			System.out.println("Alumno: " + alumno.getNombre() + " insertado exitosamente \n");
+			// Línea de separación
+			System.out.println("+------------+---------------+---------------+---------------+");
+
+			// Imprimir valores
+			System.out.printf("| %-10d | %-13s | %-13d | %-13.2f |\n", alumno.getId(), alumno.getNombre(), alumno.getEdad(), alumno.getNota());
+
+			// Línea inferior
+			System.out.println("+------------+---------------+---------------+---------------+");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
