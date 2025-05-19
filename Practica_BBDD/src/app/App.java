@@ -18,12 +18,19 @@ public class App {
 
 		while (true) {
 
-			System.out.println("1- Listar todos los alumnos ordenados por ID.\r\n"
-					+ "2. Insertar un nuevo alumno (nombre, edad, nota).\r\n"
-					+ "3. Actualizar un alumno existente por ID.\r\n" + "4. Eliminar un alumno por ID.\r\n"
-					+ "5. Listar alumnos con nota superior o igual a un valor dado.\r\n"
-					+ "6. Listar alumnos de una edad concreta.\r\n" + "7. Mostrar los 3 alumnos con mejor nota.\r\n"
-					+ "8. Mostrar estadísticas generales");
+			System.out.println("╔═════════════════════════════════════════════════════════════════╗");
+			System.out.println("║                           MENÚ DE ALUMNOS                       ║");
+			System.out.println("╠═════════════════════════════════════════════════════════════════╣");
+			System.out.println("║  1. Listar todos los alumnos ordenados por ID                   ║");
+			System.out.println("║  2. Insertar un nuevo alumno (nombre, edad, nota)               ║");
+			System.out.println("║  3. Actualizar un alumno existente por ID                       ║");
+			System.out.println("║  4. Eliminar un alumno por ID                                   ║");
+			System.out.println("║  5. Listar alumnos con nota superior o igual a un valor dado    ║");
+			System.out.println("║  6. Listar alumnos de una edad concreta                         ║");
+			System.out.println("║  7. Mostrar los 3 alumnos con mejor nota                        ║");
+			System.out.println("║  8. Mostrar estadísticas generales                              ║");
+			System.out.println("╚═════════════════════════════════════════════════════════════════╝");
+			System.out.print("► Selecciona una opción: ");
 			int opcion = sc.nextInt();
 			switch (opcion) {
 			case 1:
@@ -62,7 +69,7 @@ public class App {
 				}
 
 				System.out.println("Dime el nuevo nombre del alumno: ");
-				String n_nombre = sc.nextLine();
+				String n_nombre = sc.next();
 				System.out.println("Dime la nueva edad del alumno: ");
 				int n_edad = sc.nextInt();
 

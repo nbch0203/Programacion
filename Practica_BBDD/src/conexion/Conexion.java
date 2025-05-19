@@ -36,16 +36,16 @@ public class Conexion {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			connection = DriverManager.getConnection(url, login, password);
 			if (connection != null) {
-				System.out.println("Conexion realizada con exito");
+				System.out.println("Conexion realizada con exito\n");
 			} else {
-				System.out.println("Conexion fallida");
+				System.out.println("Conexion fallida\n");
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO: handle exception
-			System.out.println("No se ha podido encontrar la base de datos");
+
+			System.out.println("No se ha podido encontrar la base de datos \n");
 		} catch (SQLException e) {
-			// TODO: handle exception
-			System.out.println("Los datos de la base de datos estan mal introducidos");
+
+			System.out.println("Los datos de la base de datos estan mal introducidos \n");
 		}
 	}
 
@@ -62,11 +62,11 @@ public class Conexion {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.out.println("Error en el cierre de la conexion");
+				System.out.println("Error en el cierre de la conexion \n");
 			}
 
 		}
-		System.out.println("Conexion cerrada");
+		System.out.println("Conexion cerrada \n");
 	}
 
 	// Metodo para mostrar todos los alumnos existentes en la BBDD
@@ -75,19 +75,20 @@ public class Conexion {
 
 		// Variables con los datos a introducir
 		int id_alumno, edad_alumno;
-		String nombre;
+		String nombre, query = ("select ID,nombre,EDAD,NOTA from alumnos ORDER BY id desc");
 		Double nota_alumno;
 
 		// seteamos la conexion para poder crear la query
 
-		try (Statement st = connection.createStatement();
-				ResultSet rs = st.executeQuery("select ID,nombre,EDAD,NOTA from alumnos ORDER BY nota desc");) {
+		try (Statement st = connection.createStatement(); ResultSet rs = st.executeQuery(query);) {
 
 			// Imprimir línea superior
 			System.out.println("+------------+---------------+---------------+---------------+");
 
 			// Imprimir encabezados
 			System.out.printf("| %-10s | %-13s | %-13s | %-13s |\n", "Id", "Nombre", "Edad", "Nota");
+
+			// Bucle para recorrer la query
 
 			while (rs.next()) {
 
@@ -107,9 +108,10 @@ public class Conexion {
 				// Línea inferior
 				System.out.println("+------------+---------------+---------------+---------------+");
 			}
+			System.out.println("\n");
 
 		} catch (SQLException e) {
-			// TODO: handle exception
+			System.out.println("Error de sql al intentar ejecutar la consulta \n");
 		}
 
 	}
@@ -146,12 +148,51 @@ public class Conexion {
 
 			// Línea inferior
 			System.out.println("+------------+---------------+---------------+---------------+");
+			System.out.println("\n");
 
 		} catch (SQLException e) {
 			System.out.println("Error de sql al intentar insertar un nuevo alumno \n");
 		}
 	}
+	
+	// Metodo para actualizar la informacion de un alumno
 
+	public void actualizarAlumno(int id, String nombre, int edad, double nota) {
+
+		// Query para actualizar la informacion de un alumno
+
+		String query = "UPDATE alumnos SET nombre=?, edad=?, nota=? WHERE id=?";
+
+		try (Connection cn = DriverManager.getConnection(url, login, password);
+				PreparedStatement pstm = cn.prepareStatement(query)) {
+
+			pstm.setString(1, nombre);
+			pstm.setInt(2, edad);
+			pstm.setDouble(3, nota);
+			pstm.setInt(4, id);
+			pstm.executeUpdate();
+			// Imprimir línea superior
+			System.out.println("+------------+---------------+---------------+---------------+");
+
+			// Imprimir encabezados
+			System.out.printf("| %-10s | %-13s | %-13s | %-13s |\n", "Id", "Nombre", "Edad", "Nota");
+
+			// Línea de separación
+			System.out.println("+------------+---------------+---------------+---------------+");
+
+			// Imprimir valores
+			System.out.printf("| %-10d | %-13s | %-13d | %-13.2f |\n", id, nombre, edad, nota);
+
+			// Línea inferior
+			System.out.println("+------------+---------------+---------------+---------------+");
+			System.out.println("\n");
+
+		} catch (SQLException e) {
+			System.out.println("Error de sql en la actualizacion del alumno \n");
+		}
+	}
+	
+	
 	// Metodo para eliminar un alumno de la base de datos
 
 	public void borrarAlumno(int id) {
@@ -169,60 +210,28 @@ public class Conexion {
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 
-			System.out.println("Alumno borrado con exito");
+			System.out.println("Alumno borrado con exito \n");
 
 		} catch (SQLException e) {
-			// TODO: handle exception
+
 			System.out.println("Error de sql al intentar borrar al alumno \n");
 		}
 	}
 
-	// Metodo para actualizar la informacion de un alumno
 
-	public void actualizarAlumno(int id, String nombre, int edad, double nota) {
-
-		// Query para actualizar la informacion de un alumno
-
-		String query = ("UPDATE alumnos SET nombre=?,edad=?,nota=? where id=?");
-
-		try (Connection cn = DriverManager.getConnection(url, login, password);
-				PreparedStatement pstm = cn.prepareStatement(query)) {
-
-			pstm.setInt(1, id);
-			pstm.setString(2, nombre);
-			pstm.setInt(3, edad);
-			pstm.setDouble(4, nota);
-
-			// Imprimir línea superior
-			System.out.println("+------------+---------------+---------------+---------------+");
-
-			// Imprimir encabezados
-			System.out.printf("| %-10s | %-13s | %-13s | %-13s |\n", "Id", "Nombre", "Edad", "Nota");
-
-			// Línea de separación
-			System.out.println("+------------+---------------+---------------+---------------+");
-
-			// Imprimir valores
-			System.out.printf("| %-10d | %-13s | %-13d | %-13.2f |\n", id, nombre, edad, nota);
-
-			// Línea inferior
-			System.out.println("+------------+---------------+---------------+---------------+");
-
-		} catch (SQLException e) {
-			System.out.println("Error de sql en la actualizacion del alumno");
-		}
-	}
 
 	// Metodo para listar a los alumnos con una nota superior al pasado por escaner
 
 	public void listarAlumnosSuperior(Double n_superior) {
 		int id, edad_alumno;
-		String nombre;
+		String nombre, query = ("select id,nombre,EDAD,NOTA from alumnos");
 		Double nota_alumno;
 
 		ArrayList<Alumno> lista = new ArrayList<Alumno>();
-		try (Statement st = connection.createStatement();
-				ResultSet rs = st.executeQuery("select id,nombre,EDAD,NOTA from alumnos")) {
+
+		try (Statement st = connection.createStatement(); ResultSet rs = st.executeQuery(query)) {
+
+			// Bucle para recorrer la query
 
 			while (rs.next()) {
 				id = rs.getInt("id");
@@ -239,11 +248,12 @@ public class Conexion {
 			// Imprimir encabezados
 			System.out.printf("| %-10s | %-13s | %-13s | %-13s |\n", "Id", "Nombre", "Edad", "Nota");
 
+			System.out.println("+------------+---------------+---------------+---------------+");
+
 			for (Alumno alumno : lista) {
 				if (alumno.getNota() >= n_superior) {
 
 					// Línea de separación
-					System.out.println("+------------+---------------+---------------+---------------+");
 
 					// Imprimir valores
 					System.out.printf("| %-10d | %-13s | %-13d | %-13.2f |\n", alumno.getId(), alumno.getNombre(),
@@ -258,7 +268,7 @@ public class Conexion {
 			System.out.println("\n");
 
 		} catch (SQLException e) {
-			System.out.println("Error de sql al listar a los alumnos");
+			System.out.println("Error de sql al listar a los alumnos \n");
 		}
 
 	}
@@ -275,13 +285,70 @@ public class Conexion {
 		try (Connection cn = DriverManager.getConnection(url, login, password);
 				PreparedStatement pstm = cn.prepareStatement(query)) {
 
-			System.out.println(pstm.executeQuery(query));
-		} catch (Exception e) {
-			e.printStackTrace();
+			pstm.setInt(1, edad);
+			rs = pstm.executeQuery();
+
+			// Encabezado
+			System.out.println("+------------+---------------+---------------+---------------+");
+			System.out.printf("| %-10s | %-13s | %-13s | %-13s |\n", "Id", "Nombre", "Edad", "Nota");
+			System.out.println("+------------+---------------+---------------+---------------+");
+
+			// Recorrer resultados de la query
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String nombre = rs.getString("nombre");
+				int edadAlumno = rs.getInt("edad");
+				double nota = rs.getDouble("nota");
+
+				System.out.println("+------------+---------------+---------------+---------------+");
+
+				// Datos del alumno
+				System.out.printf("| %-10d | %-13s | %-13d | %-13.2f |\n", id, nombre, edadAlumno, nota);
+			}
+
+			System.out.println("+------------+---------------+---------------+---------------+");
+			System.out.println("\n");
+
+		} catch (SQLException e) {
+			System.out.println("Error de sql al realizar el listado de alumnos \n");
 		}
 
 	}
+	
+	
+	// Metod para mostrar a los 2 alumnos con mejor nota ordenados de mayora menor
+	
+	public void mostrarAlumnosMejorNota() {
+			int edad_alumno;
+			String nombre;
+			double nota_alumno;
 
+			// Query que nos dara los 3 primeros alumnos con mejor nota
+			String query = ("SELECT nombre, edad, nota FROM alumnos ORDER BY nota DESC FETCH FIRST 3 ROWS ONLY");
+
+			try (Statement st = connection.createStatement(); ResultSet rs = st.executeQuery(query)) {
+				// Encabezado
+				System.out.println("+---------------+---------------+---------------+");
+				System.out.printf("| %-13s | %-13s | %-13s |\n", "Nombre", "Edad", "Nota");
+				System.out.println("+---------------+---------------+---------------+");
+
+				// Bucle para recorrer la query
+				while (rs.next()) {
+					nombre = rs.getString("nombre");
+					edad_alumno = rs.getInt("edad");
+					nota_alumno = rs.getDouble("nota");
+
+					// Datos del mejor alumno
+					System.out.printf("| %-13s | %-13d | %-13.2f |\n", nombre, edad_alumno, nota_alumno);
+					System.out.println("+---------------+---------------+---------------+");
+				}
+				System.out.println("\n");
+			} catch (SQLException e) {
+				System.out.println("Error de SQL al intentar mostrar al alumno con mejor nota");
+			}
+		}
+
+	
 	// Metodo para mostrar todas la estadisticas generales de los alumnos
 
 	public void mostrarEstadisticasgenerales() {
@@ -289,12 +356,14 @@ public class Conexion {
 		// Variables para almacenar toda la informacion que nos interesa
 
 		int edad_alumno, numero_aprobados = 0, numero_suspensos = 0;
-		String nombre;
+		String nombre, query = ("select nombre,EDAD,NOTA from alumnos");
 		Double nota_alumno, nota_media = 0.0;
 
 		ArrayList<Alumno> lista = new ArrayList<Alumno>();
-		try (Statement st = connection.createStatement();
-				ResultSet rs = st.executeQuery("select nombre,EDAD,NOTA from alumnos");) {
+
+		try (Statement st = connection.createStatement(); ResultSet rs = st.executeQuery(query);) {
+
+			// Bucle para recorrer la query
 
 			while (rs.next()) {
 				nombre = rs.getString("nombre");
@@ -303,6 +372,8 @@ public class Conexion {
 				Alumno alumno = new Alumno(nombre, edad_alumno, nota_alumno);
 				lista.add(alumno);
 			}
+			// Bucle para recorrer la lista y
+			// saber los numeros de aprobados y suspensos
 
 			for (int i = 0; i < lista.size(); i++) {
 				nota_media = lista.get(i).getNota() + nota_media;
@@ -313,45 +384,29 @@ public class Conexion {
 				}
 			}
 			nota_media = nota_media / lista.size();
+//
+//			System.out.printf("\n La nota media general es : %.1f", nota_media);
+//			System.out.println("\n El numero de aprobados es de : " + numero_aprobados
+//					+ "\n El numero de suspensos es de : " + numero_suspensos + "\n");
+			// Imprimir línea superior
+			System.out.println("+------------+---------------------+---------------------+");
 
-			System.out.printf("\n La nota media general es : %.1f", nota_media);
-			System.out.println("\n El numero de aprobados es de : " + numero_aprobados
-					+ "\n El numero de suspensos es de : " + numero_suspensos + "\n");
+			// Imprimir encabezados
+			System.out.printf("| %-10s | %-13s | %-13s |\n", "Nota media", "Numero de aprobados",
+					"Numero de suspensos");
+
+			// Línea de separación
+			System.out.println("+------------+---------------------+---------------------+");
+
+			// Imprimir valores
+			System.out.printf("| %-10.2f | %-19d | %-19d | \n", nota_media, numero_aprobados, numero_suspensos);
+
+			// Línea inferior
+			System.out.println("+------------+---------------------+---------------------+");
+			System.out.println("\n");
 
 		} catch (SQLException e) {
 			System.out.println("Error de sql al mostrar la estadisticas generales \n");
-		}
-
-	}
-
-	public void mostrarAlumnosMejorNota() {
-		int edad_alumno;
-		String nombre;
-		Double nota_alumno;
-
-		ArrayList<Alumno> lista = new ArrayList<Alumno>();
-
-		try (Statement st = connection.createStatement();
-				ResultSet rs = st.executeQuery("select nombre,EDAD,NOTA from alumnos order by nota desc");) {
-
-			while (rs.next()) {
-				nombre = rs.getString("nombre");
-				edad_alumno = rs.getInt("EDAD");
-				nota_alumno = rs.getDouble("NOTA");
-				Alumno alumno = new Alumno(nombre, edad_alumno, nota_alumno);
-				lista.add(alumno);
-			}
-
-			for (int i = 0; i < lista.size(); i++) {
-				System.out.println(lista.get(i));
-				if (i == 2) {
-
-					break;
-				}
-			}
-
-		} catch (SQLException e) {
-			// TODO: handle exception
 		}
 
 	}
