@@ -320,7 +320,7 @@ public class Conexion {
 		double nota_alumno;
 
 		// Query que nos dara los 3 primeros alumnos con mejor nota
-		String query = ("SELECT nombre, edad, nota FROM alumnos ORDER BY nota DESC FETCH FIRST 3 ROWS ONLY");
+		String query = ("SELECT Nombre, Edad, Nota FROM alumnos ORDER BY nota DESC FETCH FIRST 3 ROWS ONLY");
 
 		try (Statement st = connection.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
@@ -333,9 +333,9 @@ public class Conexion {
 
 			// Bucle para recorrer la query
 			while (rs.next()) {
-				nombre = rs.getString("nombre");
-				edad_alumno = rs.getInt("edad");
-				nota_alumno = rs.getDouble("nota");
+				nombre = rs.getString("Nombre");
+				edad_alumno = rs.getInt("Edad");
+				nota_alumno = rs.getDouble("Nota");
 
 				// Datos del mejor alumno
 				System.out.printf("| %-13s | %-13d | %-13.2f |\n", nombre, edad_alumno, nota_alumno);

@@ -1,17 +1,11 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> 152e0a7dba66cd4e533346e84df457d4270d8e6e
 package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-<<<<<<< HEAD
-=======
 import java.io.EOFException;
->>>>>>> 152e0a7dba66cd4e533346e84df457d4270d8e6e
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -20,12 +14,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-<<<<<<< HEAD
-=======
 import java.io.OutputStream;
 import java.util.ArrayList;
 
->>>>>>> 152e0a7dba66cd4e533346e84df457d4270d8e6e
 import javax.swing.JOptionPane;
 
 import modelo.Equipo;
@@ -33,17 +24,13 @@ import modelo.ObjectOutputStreamSinCabecera;
 import vista.Vista;
 
 public class Controlador {
-<<<<<<< HEAD
 	private File file = new File("equipos.txt");
-=======
-	private static File file = new File("equipos.txt");
->>>>>>> 152e0a7dba66cd4e533346e84df457d4270d8e6e
+	private static File file2 = new File("equipos.txt");
 	private File file_obj = new File("equipos.dat");
 	private Vista vista;
 	private Equipo modelo;
 
 	public Controlador(Vista vista, Equipo modelo) {
-<<<<<<< HEAD
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -61,8 +48,6 @@ public class Controlador {
 				e.printStackTrace();
 			}
 		}
-=======
->>>>>>> 152e0a7dba66cd4e533346e84df457d4270d8e6e
 
 		this.vista = vista;
 		this.modelo = modelo;
@@ -100,7 +85,7 @@ public class Controlador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				mostrarOBJ();
+				mostrarOBJ1();
 			}
 		});
 		getVista().getBtn_buscar().addActionListener(new ActionListener() {
@@ -122,7 +107,6 @@ public class Controlador {
 
 	}
 
-<<<<<<< HEAD
 	public void guardarTxT() {
 		Equipo eq;
 
@@ -163,11 +147,10 @@ public class Controlador {
 
 	}
 
-=======
 	/**
 	 * 
 	 */
-	public void guardarTxT() {
+	public void guardarTxT1() {
 		// Verificar campos obligatorios
 		if (getVista().getNumero_serie().isEmpty() || getVista().getMarca().isEmpty()
 				|| getVista().getAno_compra().isEmpty() || getVista().getTipo() == null
@@ -256,7 +239,6 @@ public class Controlador {
 //
 //	}
 
->>>>>>> 152e0a7dba66cd4e533346e84df457d4270d8e6e
 	public void buscarTXT() {
 
 		try {
@@ -265,19 +247,17 @@ public class Controlador {
 			BufferedReader br = new BufferedReader(fr);
 			String aux = "";
 			while ((aux = br.readLine()) != null) {
-<<<<<<< HEAD
 				if (aux.contains(numero)) {
 					getVista().setTextArea(aux);
 					br.close();
 					fr.close();
-=======
-				ArrayList<String> lista = new ArrayList<>();
-				lista.add(aux);
-				for (String string : lista) {
-					if (string.equals(numero)) {
-						getVista().setTextArea(string);
+					ArrayList<String> lista = new ArrayList<>();
+					lista.add(aux);
+					for (String string : lista) {
+						if (string.equals(numero)) {
+							getVista().setTextArea(string);
+						}
 					}
->>>>>>> 152e0a7dba66cd4e533346e84df457d4270d8e6e
 				}
 			}
 
@@ -326,8 +306,7 @@ public class Controlador {
 
 	}
 
-<<<<<<< HEAD
-	public void mostrarOBJ() {
+	public void mostrarOBJ1() {
 		try {
 			FileInputStream fis = new FileInputStream(file_obj);
 			ObjectInputStream oos = new ObjectInputStream(fis);
@@ -341,8 +320,9 @@ public class Controlador {
 			}
 
 		} catch (IOException | ClassNotFoundException e) {
-			// TODO: handle exception
-=======
+		}
+		// TODO: handle exception
+	}
 //	public void mostrarOBJ() {
 //		try {
 //			// Limpiar el área de texto primero
@@ -403,7 +383,6 @@ public class Controlador {
 			}
 
 		} catch (IOException | ClassNotFoundException e) {
->>>>>>> 152e0a7dba66cd4e533346e84df457d4270d8e6e
 		}
 
 	}
