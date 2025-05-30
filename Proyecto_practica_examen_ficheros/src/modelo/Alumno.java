@@ -74,11 +74,17 @@ public class Alumno implements Serializable {
 	}
 
 	public void guardarTxt(String string) throws IOException {
-		FileWriter fw = new FileWriter(file_txt);
-		BufferedWriter bw = new BufferedWriter(fw);
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+
 		if (!file_txt.exists()) {
-			file_txt.createNewFile();
+			fw = new FileWriter(file_txt);
+			bw = new BufferedWriter(fw);
+		} else {
+			fw = new FileWriter(file_txt, true);
+			bw = new BufferedWriter(fw);
 		}
+
 		bw.write(string + "\n");
 		bw.close();
 		fw.close();
