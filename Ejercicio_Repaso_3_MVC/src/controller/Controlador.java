@@ -2,9 +2,11 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -56,9 +58,9 @@ public class Controlador {
 				guardarObjt();
 			}
 		});
-		
+
 		getVista().getBoton_mostrar().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -114,6 +116,16 @@ public class Controlador {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+
+	}
+
+	public void leerTxt() {
+		Object line;
+		try (FileReader reader = new FileReader(); BufferedReader  = new BufferedReader(reader)) {
+			
+			while ((line = buffer.readLine()) != null) {
+			}
 		}
 
 	}
