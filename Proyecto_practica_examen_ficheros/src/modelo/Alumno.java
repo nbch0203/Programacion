@@ -88,6 +88,7 @@ public class Alumno implements Serializable {
 		bw.write(string + "\n");
 		bw.close();
 		fw.close();
+		
 	}
 
 	public void guardarObj(Alumno alumno) throws IOException {
