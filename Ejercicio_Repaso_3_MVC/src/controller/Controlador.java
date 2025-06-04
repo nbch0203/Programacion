@@ -120,13 +120,13 @@ public class Controlador {
 
 	}
 
-	public void leerTxt() {
-		Object line;
-		try (FileReader reader = new FileReader(); BufferedReader  = new BufferedReader(reader)) {
-			
-			while ((line = buffer.readLine()) != null) {
-			}
-		}
-
-	}
+//	public void leerTxt() {
+//		Object line;
+//		try (FileReader reader = new FileReader(); BufferedReader  = new BufferedReader(reader)) {
+//			
+//			while ((line = buffer.readLine()) != null) {
+//			}
+//		}
+//
+//	}
 }

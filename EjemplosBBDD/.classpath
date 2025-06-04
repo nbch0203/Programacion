@@ -5,7 +5,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/bbdd"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/nixon/eclipse-workspace/Programacion/Librerias_Java/BBDD_Oracle/ojdbc11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
