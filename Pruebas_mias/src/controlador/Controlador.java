@@ -8,6 +8,6 @@ public class Controlador {
 	private Vista interfaz;
 	private Gestor_clientes_trabajadores modelo;
 	
-	public void 
+//	public void 
 
 }

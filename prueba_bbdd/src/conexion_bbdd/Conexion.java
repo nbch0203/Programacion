@@ -1,14 +1,13 @@
 package conexion_bbdd;
 
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import oracle.sql.DATE;
 
 public class Conexion {
 
@@ -109,10 +108,10 @@ public class Conexion {
 	}
 
 	public void actualizarCliente(int ncliente, String nuevaDir) {
-		String query=("UPDATE");
+		String query = ("UPDATE");
 		try (Connection cn = DriverManager.getConnection(url, login, password);
 				PreparedStatement pstm = cn.prepareStatement(query)) {
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
