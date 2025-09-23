@@ -1,40 +1,53 @@
 package ejercicio_4_plus;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class Main {
+    public static void main(String[] args) {
+        File file = new File("alumnos.dat");
+        Metodos metodos = new Metodos();
 
-	static File file = new File("alumnos.dat");
+        try {
+            // 1 y 2 - Crear alumnos y guardarlos en el fichero
+            Alumno a1 = new Alumno(7, "Carlos");
+            Alumno a2 = new Alumno(9, "Lucia");
+            Alumno a3 = new Alumno(5, "Pedro");
 
-	public void escribir(ArrayList<Alumno> lista) throws FileNotFoundException {
+            metodos.escribir(file, a1);
+            metodos.escribir(file, a2);
+            metodos.escribir(file, a3);
 
-		RandomAccessFile fr = new RandomAccessFile(file, "rw");
+            System.out.println("Alumnos guardados en el fichero.\n");
 
-	}
+            // 3 - Mostrar contenido del fichero
+            System.out.println("Listado de alumnos en alumnos.dat:");
+            imprimirAlumnos(metodos.leerTodos(file));
 
-	public void leer() {
-	}
+            // 4 - Modificar nota de un alumno por nombre
+            if (metodos.modificarNota(file, "Lucia", 10)) {
+                System.out.println("\nNota de Lucia modificada a 10.");
+            }
 
-	public static void main(String[] args) {
+            // 5 - Modificar nota del último alumno
+            if (metodos.modificarUltimo(file, 8)) {
+                System.out.println("Nota del último alumno modificada a 8.");
+            }
 
-		ArrayList<Alumno> lista = new ArrayList<Alumno>();
+            // 6 - Mostrar contenido actualizado del fichero
+            System.out.println("\nListado actualizado de alumnos en alumnos.dat:");
+            imprimirAlumnos(metodos.leerTodos(file));
 
-		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		
-		lista.add(new Alumno(5, "Antonio"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	}
-
+    // Método auxiliar para imprimir alumnos
+    private static void imprimirAlumnos(ArrayList<Alumno> lista) {
+        for (Alumno a : lista) {
+            System.out.println("Nombre: " + a.getNombre() + ", Nota: " + a.getNota());
+        }
+    }
 }
