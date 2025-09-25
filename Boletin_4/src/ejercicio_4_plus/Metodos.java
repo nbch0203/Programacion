@@ -38,7 +38,7 @@ public class Metodos {
 			for (int i = 0; i < TAM_NOMBRE; i++) {
 				nombre[i] = fr.readChar();
 			}
-			String nombreS = new String(nombre).trim();
+			String nombreS = new String(nombre);
 
 			lista.add(new Alumno(nota, nombreS));
 		}
@@ -82,7 +82,7 @@ public class Metodos {
 			for (int i = 0; i < TAM_NOMBRE; i++) {
 				nombre[i] = fr.readChar();
 			}
-			String nombreS = new String(nombre).trim();
+			String nombreS = new String(nombre);
 
 			if (nombreS.equalsIgnoreCase(nombreBuscado)) {
 				// Volvemos al inicio de este registro para reescribir la nota
